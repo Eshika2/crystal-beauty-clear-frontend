@@ -1,44 +1,39 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import MediaUpload from "../utils/mediaUpload";
+
 
 export default function Testing() {
-    const [number, setNumber] = useState(0);
-    const [status, setStatus] = useState("Pending");
+    const [file, setFile] = useState(null);
 
-    function increment() {
-        let newValue = number + 1;
-        setNumber(newValue);
-    }
-
-    function decrement() {
-        let newValue = number - 1;
-        setNumber(newValue);
+    function handleUpload() {
+        MediaUpload(file).then(
+            (url)=>{
+                console.log(url);
+                toast.success("File uploaded successfully");
+            }
+        ).catch(
+            (error)=>{
+                console.log(error);
+                toast.error("File upload failed");
+            }
+        );
     }
 
     return (
         <div className="w-full h-screen flex flex-col justify-center items-center bg-linear-to-r from-white to-purple-500">
-            <span className="text-3xl font-bold">{number}</span>
-
-            <div className="w-full flex justify-center">
-                <button className="w-[60px] bg-blue-500 text-white p-2 rounded-lg mr-[5px]" onClick={increment}>+</button>
-                <button className="w-[60px] bg-blue-500 text-white p-2 rounded-lg ml-[5px]" onClick={decrement}>-</button>
-            </div>
-
-            <span className="text-3xl font-bold">{status}</span>
-
-            <div className="w-full flex justify-center">
-                <button className="w-[60px] bg-blue-500 text-white p-2 rounded-lg mr-[5px]" 
-                    onClick={()=>{
-                        setStatus("Passed");
-                    }}>
-                    Pass
-                </button>
-                <button className="w-[60px] bg-blue-500 text-white p-2 rounded-lg ml-[5px]" 
-                    onClick={()=>{
-                        setStatus("Failed");
-                    }}>
-                    Fail
-                </button>
-            </div>
+            <input type="file" onChange={
+                (e)=>{
+                    // console.log(e.target.files[0]);
+                    setFile(e.target.files[0]);
+                }
+            } />
+            <button 
+                className="bg-pink-500 text-white px-4 py-2 rounded-lg mt-4"
+                onClick={handleUpload}
+            >
+                Upload
+            </button>
         </div>
     );
 }
