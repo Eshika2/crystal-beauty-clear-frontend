@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const naviagate = useNavigate();
+    const navigate = useNavigate();
 
     function handleLogin() {
         // console.log(email);
@@ -28,9 +28,9 @@ export default function LoginPage() {
 
                 const user = response.data.user;
                 if (user.role === "admin") {
-                    naviagate("/admin");
+                    navigate("/admin");
                 } else {
-                    naviagate("/");
+                    navigate("/");
                 }
             }
         )

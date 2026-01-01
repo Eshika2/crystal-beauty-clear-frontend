@@ -128,8 +128,8 @@ export default function AddProductForm() {
                     multiple
                     onChange={(e)=>{
                         setImages(e.target.files);
-                    }
-                } />
+                    }}
+                />
                 <input
                     className="w-[400px] h-[50px] border border-gray-500 rounded-xl text-center m-[5px]"
                     type="text" 
