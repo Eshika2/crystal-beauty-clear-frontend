@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FaPlus } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -13,6 +13,8 @@ export default function AdminProductsPage() {
 
     const [products, setProducts] = useState([]);
     const [loaded, setLoaded] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(
         () => {
@@ -92,11 +94,20 @@ export default function AdminProductsPage() {
                                             <td className="p-2">{product.stock}</td>
                                             <td className="p-2">
                                                 <div className="w-full h-full flex items-center justify-center">
-                                                    <FaRegTrashAlt onClick={() => {
-                                                        deleteProduct(product.productId);
-                                                    }}
-                                                    className="text-[25px] m-[10px] hover:text-red-500 "/>
-                                                    <GrEdit className="text-[25px] m-[10px] hover:text-blue-500 "/>
+                                                    <FaRegTrashAlt 
+                                                        onClick={() => {
+                                                            deleteProduct(product.productId);
+                                                        }}
+                                                        className="text-[25px] m-[10px] hover:text-red-500 "
+                                                    />
+                                                    <GrEdit 
+                                                        onClick={() => {
+                                                            navigate("/admin/editProduct/", {
+                                                                state: product
+                                                            })
+                                                        }}
+                                                        className="text-[25px] m-[10px] hover:text-blue-500 "
+                                                    />
                                                 </div>
                                             </td>
                                         </tr>
