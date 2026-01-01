@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { GrEdit } from "react-icons/gr";
 import toast from "react-hot-toast";
+import Loader from "../../components/loader";
 
 
 export default function AdminProductsPage() {
@@ -107,11 +108,7 @@ export default function AdminProductsPage() {
                 </table>
             }
             { !loaded && 
-                <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-[60px] h-[60px] border-[4px] border-transparent border-t-blue-700 rounded-full animate-spin">
-                    </div>
-                </div>
-
+                <Loader />
             }
         </div>
     )
