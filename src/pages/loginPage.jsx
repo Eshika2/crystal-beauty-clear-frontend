@@ -1,17 +1,21 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
 
     function handleLogin() {
         // console.log(email);
         // console.log(password);
+
+        setLoading(true);
 
         axios.post(import.meta.env.VITE_BACKEND_URL + "/api/user/login", {
             email: email,
@@ -32,6 +36,7 @@ export default function LoginPage() {
                 } else {
                     navigate("/");
                 }
+                setLoading(false);
             }
         )
         .catch(
@@ -40,12 +45,15 @@ export default function LoginPage() {
 
                 // alert("Login Failed", error.response.data.message);
                 toast.error(error.response.data.message || "Login Failed");
+
+                setLoading(false);
             }
         );
     }
 
     return (
         <div className="w-full bg-red-900 h-screen bg-[url(/login-bg.jpg)] bg-cover bg-center flex">
+            
             <div className="w-[50%] h-full">
 
             </div>
@@ -74,8 +82,15 @@ export default function LoginPage() {
                     <button className="w-[400px] h-[50px] bg-green-500 rounded-xl text-white cursor-pointer"
                         onClick={handleLogin}
                     >
-                        Login
+                        {
+                            loading ? "Loading..." : "Login"
+                        }
                     </button>
+                    <p className="text-stone-600 mt-2">Don't have an account yet? {" "}
+                        <span className="text-green-500 cursor-pointer hover:text-green-600">
+                            <Link to="/register">Register</Link>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
