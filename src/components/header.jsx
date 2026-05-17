@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BsCart4 } from "react-icons/bs";
 
 export default function Header() {
     return (
@@ -8,6 +9,7 @@ export default function Header() {
                 <Link to="/products"> Products </Link>
                 <Link to="/contact"> Contact </Link>
                 <Link to="/reviews"> Reviews </Link>
+                <Link to="/cart" className="absolute right-[50px] text-3xl"> <BsCart4 /> </Link>
             </div>
 
         </header>
